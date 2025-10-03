@@ -44,10 +44,11 @@ public class InternalUserServiceImpl implements InternalUserService {
         }
         Role userRole = roleRepository.findById(USER_ROLE_ID)
                 .orElseThrow(() -> new NotFoundException("Роль с id " + USER_ROLE_ID + "не найдена"));
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(userDto.getPassword());
-        user.setRole(userRole);
+        User user = User.builder()
+                .username(username)
+                .password(userDto.getPassword())
+                .role(userRole)
+                .build();
         return userRepository.save(user);
     }
 

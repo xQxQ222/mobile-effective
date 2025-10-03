@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtTokenManager tokenManager;
     private final InternalUserService userService;
     private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public JwtAuthenticationResponse signIn(SignInRequest request) {
@@ -37,7 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
-        UserDto userDto = new UserDto(request.getUsername(), request.getPassword());
+        UserDto userDto = new UserDto(request.getUsername(), passwordEncoder.encode(request.getPassword()));
         User user = userService.createUser(userDto);
         String token = tokenManager.generateJwtToken(new CustomUserDetails(user));
         return new JwtAuthenticationResponse(token);

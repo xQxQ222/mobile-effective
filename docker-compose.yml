@@ -1,7 +1,7 @@
 services:
   bank-db:
     image: postgres:16.1
-    container_name: bank-card-service
+    container_name: bank-card-database
     ports:
       - "6432:5432"
     environment:
