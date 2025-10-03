@@ -24,6 +24,8 @@
         <jjwt.version>0.13.0</jjwt.version>
         <swagger.annotation.version>2.1.6</swagger.annotation.version>
         <springdoc.open-api.version>2.6.0</springdoc.open-api.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <mapstruct-processor.version>1.5.5.Final</mapstruct-processor.version>
     </properties>
 
     <dependencies>
@@ -86,6 +88,19 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct-processor.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

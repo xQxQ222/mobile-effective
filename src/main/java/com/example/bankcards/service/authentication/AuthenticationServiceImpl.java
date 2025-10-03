@@ -9,15 +9,19 @@ import com.example.bankcards.security.CustomUserDetails;
 import com.example.bankcards.service.user.InternalUserService;
 import com.example.bankcards.util.JwtTokenManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
@@ -34,6 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         ));
         UserDetails user = userDetailsService.loadUserByUsername(request.getUsername());
         String token = tokenManager.generateJwtToken(user);
+        log.info("User {} sign in", request.getUsername());
         return new JwtAuthenticationResponse(token);
     }
 
@@ -41,6 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
         UserDto userDto = new UserDto(request.getUsername(), passwordEncoder.encode(request.getPassword()));
         User user = userService.createUser(userDto);
+        log.info("Sign up. New user {}", request.getUsername());
         String token = tokenManager.generateJwtToken(new CustomUserDetails(user));
         return new JwtAuthenticationResponse(token);
     }

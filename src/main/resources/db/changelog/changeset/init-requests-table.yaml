@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-requests-table
+      author: xQxQ222
+      changes:
+        - createTable:
+            tableName: block_requests
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: requester_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: requester_fk
+                    referencedTableName: users
+                    referencedColumnNames: id
+              - column:
+                  name: card_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: card_fk
+                    referencedTableName: cards
+                    referencedColumnNames: id
+              - column:
+                  name: request_state
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

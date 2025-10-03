@@ -7,6 +7,9 @@ jwt:
     signing:
       key: JHPOQIE13948UIFHJ342IOHUJFOIDU3OFID1FOIEDUR1opiIUJ31234POUJDSF3poiJKFD45POF
 
+card:
+  key: 8fH3kL9pQ2wEr7yT5vBn1mZx4C0aSdFg
+
 spring:
   liquibase:
     enabled: true

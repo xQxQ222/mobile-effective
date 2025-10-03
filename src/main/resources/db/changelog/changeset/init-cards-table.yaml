@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-cards-table
+      author: xQxQ222
+      changes:
+        - createTable:
+            tableName: cards
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: owner_fk
+                    referencedTableName: users
+                    referencedColumnNames: id
+              - column:
+                  name: validity_period
+                  type: TIMESTAMPTZ
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: float
+                  constraints:
+                    nullable: false
+                    checkConstraint: "balance > 0"
+              - column:
+                  name: card_state
+                  type: VARCHAR(50)
