@@ -23,4 +23,9 @@ public class CardDto {
     Float balance;
 
     CardState state;
+
+    public String getCardNumber() {
+        String lastQuartet = cardNumber.trim().substring(cardNumber.length() - 4);
+        return "**** **** **** " + lastQuartet;
+    }
 }

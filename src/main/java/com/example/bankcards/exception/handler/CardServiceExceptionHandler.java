@@ -21,6 +21,12 @@ public class CardServiceExceptionHandler {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse handleIllegalRequestStateException(final IllegalRequestStateException e) {
+        return new ExceptionResponse("Illegal request state", e.getMessage());
+    }
+
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionResponse handleAlreadyExistsException(final AlreadyExistsException e) {
         return new ExceptionResponse("Object already exists", e.getMessage());
@@ -30,6 +36,12 @@ public class CardServiceExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ExceptionResponse handleNotCardOwnerException(final NotCardOwnerException e) {
         return new ExceptionResponse("User is not card owner", e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionResponse handleNotRequestInitiatorException(final NotRequestInitiatorException e) {
+        return new ExceptionResponse("User is not request initiator", e.getMessage());
     }
 
     @ExceptionHandler
