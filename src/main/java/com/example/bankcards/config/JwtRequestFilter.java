@@ -28,7 +28,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private static final String HEADER_NAME = "Authorization";
 
     private final JwtTokenManager tokenManager;
-    private final InternalUserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -49,13 +48,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             } catch (MalformedJwtException exception) {
                 log.error("Error: {}", exception.getMessage());
-                return;
             } catch (ExpiredJwtException exception) {
                 log.error("Error: {}", exception.getMessage());
-                return;
             } catch (SignatureException exception) {
                 log.error("Error: {}", exception.getMessage());
-                return;
             }
         }
         filterChain.doFilter(request, response);
